@@ -5,6 +5,9 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -16,10 +19,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.fuadmaska.myfeature.Fragment.ReminderFragment;
 import com.example.fuadmaska.myfeature.Fragment.ReminderListFragment;
 import com.example.fuadmaska.myfeature.Model.DataReminder;
 import com.google.gson.Gson;
@@ -55,7 +60,7 @@ public class AddReminder extends AppCompatActivity {
         loaddata();
         Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar_add);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("");
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         spinnerAdd=(Spinner)findViewById(R.id.selectinsu);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_dropdown_item, jenisAsuransi);
@@ -106,14 +111,14 @@ public class AddReminder extends AppCompatActivity {
                         ReminderListFragment rlf = new ReminderListFragment();
                         data.add(new DataReminder(category, total, tanggal, waktu, note));
                         save();
-                        Toast.makeText(getApplicationContext(), "Data Disimpan di Internal", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(AddReminder.this, activityList.class);
-                        startActivity(intent);
-
-//                        FragmentManager fragmentManager = getSupportFragmentManager();
-//                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                        fragmentTransaction.replace(R.id.container_remin,rlf);
+                        finish();
+//                        Toast.makeText(getApplicationContext(), "Data Disimpan di Internal", Toast.LENGTH_SHORT).show();
+//                        Intent intent = new Intent(AddReminder.this,ReminderListFragment.class);
+//                        startActivity(intent);
+//                        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction().replace(R.id.container_remin,rlf);
 //                        fragmentTransaction.commit();
+
+                        //AddReminder.this.finish();
 
                     }
             }

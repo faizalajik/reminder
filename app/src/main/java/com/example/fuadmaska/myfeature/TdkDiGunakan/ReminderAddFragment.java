@@ -6,6 +6,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -44,7 +45,7 @@ public class ReminderAddFragment extends Fragment {
     Button saveaddrem;
     Spinner selins;
     private ArrayList<DataReminder> data;
-
+    TabLayout tabbawah;
     String[] jenisInsurance = {
             "Asuransi Jiwa",
             "Asuransi Kesehatan",
@@ -73,6 +74,8 @@ public class ReminderAddFragment extends Fragment {
         addedttot = view.findViewById(R.id.edttotprem);
         addedttot.addTextChangedListener(new NumberTextWatcher(addedttot, "#,##.00"));
         addedtdate = view.findViewById(R.id.edtdateprem);
+//        tabbawah = view.findViewById(R.id.Tabbawah);
+//        tabbawah.setVisibility(View.GONE);
         addedtdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

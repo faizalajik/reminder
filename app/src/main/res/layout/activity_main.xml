@@ -16,9 +16,13 @@
     <android.support.design.widget.TabLayout
         android:id="@+id/Tabbawah"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/abuabu"
+        android:background="@color/colorWhite"
+        app:tabIndicatorColor="@color/merahBata"
+        app:tabIndicatorHeight="2dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/Theme.Design.Light.NoActionBar"
         >
 
     </android.support.design.widget.TabLayout>

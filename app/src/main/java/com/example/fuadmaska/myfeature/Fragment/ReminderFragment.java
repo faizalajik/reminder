@@ -4,6 +4,7 @@ package com.example.fuadmaska.myfeature.Fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -29,6 +30,7 @@ import static android.content.Context.MODE_PRIVATE;
  */
 public class ReminderFragment extends Fragment {
     Button btnsetnewrmndr;
+    TabLayout tabbawah;
     private ArrayList<DataReminder> data = null;
 
     public ReminderFragment() {
@@ -47,6 +49,7 @@ public class ReminderFragment extends Fragment {
                 public void onClick(View view) {
                     Intent intent = new Intent(getActivity(), AddReminder.class);
                     getActivity().startActivity(intent);
+                    tampilList();
 //
 //                    ReminderAddFragment rmaf = new ReminderAddFragment();
 //                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
@@ -54,6 +57,9 @@ public class ReminderFragment extends Fragment {
 //                    fragmentTransaction.replace(R.id.container_remin,rmaf);
 //                    fragmentTransaction.addToBackStack(null);
 //                    fragmentTransaction.commit();
+//                    tabbawah = view.findViewById(R.id.Tabbawah);
+//                    tabbawah.setVisibility(View.GONE);
+
                 }
 
 //                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
@@ -65,6 +71,10 @@ public class ReminderFragment extends Fragment {
         //loaddata();
     return view;
     }
+
+    private void tampilList() {
+    }
+
     private void loaddata() {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("datasave", MODE_PRIVATE);
         Gson gson = new Gson();
@@ -77,5 +87,11 @@ public class ReminderFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
 
+
+
+    }
 }

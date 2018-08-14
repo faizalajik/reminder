@@ -19,7 +19,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddReminder" />
-        <activity android:name=".activityList"></activity>
     </application>
 
 </manifest>

@@ -1,15 +1,18 @@
 package com.example.fuadmaska.myfeature;
 
 import android.content.SharedPreferences;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.fuadmaska.myfeature.Fragment.ClaimFragment;
+import com.example.fuadmaska.myfeature.Fragment.FragmentReminderMain;
 import com.example.fuadmaska.myfeature.Fragment.HomeFragment;
 import com.example.fuadmaska.myfeature.Fragment.MessageFragment;
 import com.example.fuadmaska.myfeature.Fragment.ProfileFragment;
@@ -25,7 +28,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     TabLayout tabbawah;
     ViewPager pageatas;
-    ArrayList<DataReminder> data;
+
 
 
     @Override
@@ -51,11 +54,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 pageatas.setCurrentItem(tab.getPosition());
+                int tabIconColor = ContextCompat.getColor(MainActivity.this, R.color.merahBata);
+                tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
+                int tabIconColor = ContextCompat.getColor(MainActivity.this, R.color.hitam);
+                tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
             }
 
             @Override
@@ -80,14 +86,8 @@ public class MainActivity extends AppCompatActivity {
             } else if (position == 1) {
                 return new ClaimFragment();
             } else if (position == 2) {
-                loaddata();
-                if (data.isEmpty()) {
-                    return new ReminderFragment();
-                }
-                    else{
-                    return new ReminderListFragment();
 
-                }
+               return new FragmentReminderMain();
 
             } else if (position == 3) {
                 return new MessageFragment();
@@ -104,17 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    private void loaddata() {
-        SharedPreferences sharedPreferences = getSharedPreferences("datasave", MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("datalist", null);
-        Type type = new TypeToken<ArrayList<DataReminder>>() {}.getType();
-        data = gson.fromJson(json, type);
 
-        if (data == null) {
-            data = new ArrayList<>();
-        }
-    }
 
 
 }

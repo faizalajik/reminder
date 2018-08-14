@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -19,6 +20,7 @@ import com.example.fuadmaska.myfeature.AddReminder;
 import com.example.fuadmaska.myfeature.Model.AdapterReminder;
 import com.example.fuadmaska.myfeature.Model.DataReminder;
 import com.example.fuadmaska.myfeature.R;
+import com.example.fuadmaska.myfeature.TdkDiGunakan.ReminderAddFragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -35,6 +37,7 @@ RecyclerView recycler;
 
     private RecyclerView rv;
     private ArrayList<DataReminder> data;
+    TabLayout tabbawah;
 
 
     public ReminderListFragment() {
@@ -62,9 +65,12 @@ RecyclerView recycler;
 //                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 //                fragmentTransaction.replace(R.id.reminder_list,rlf);
 //                fragmentTransaction.commit();
+//                tabbawah = view.findViewById(R.id.Tabbawah);
+//                tabbawah.setVisibility(View.GONE);
 
             }
         });
+//        fab.getP
         return view;
     }
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -88,4 +94,7 @@ RecyclerView recycler;
         }
     }
 
+    public static Fragment newInstance() {
+        return new ReminderListFragment();
+    }
 }

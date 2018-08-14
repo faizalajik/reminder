@@ -1,8 +1,11 @@
 package com.example.fuadmaska.myfeature.Model;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.fuadmaska.myfeature.AddReminder;
 import com.example.fuadmaska.myfeature.Fragment.ReminderListFragment;
 import com.example.fuadmaska.myfeature.R;
 import com.google.gson.Gson;
@@ -49,12 +53,22 @@ public class AdapterReminder extends RecyclerView.Adapter<AdapterReminder.ViewHo
         holder.del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dataList.remove(position);
-                notifyItemRemoved(position);
-                notifyItemRangeChanged(position,dataList.size());
-                save();
+                new AlertDialog.Builder(context)
+                        .setMessage("Are you sure want to delete reminder?")
+                        .setCancelable(true)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dataList.remove(position);
+                                notifyItemRemoved(position);
+                                notifyItemRangeChanged(position,dataList.size());
+                                save();
+                            }
+                        }).setNegativeButton("No",null).show();
+
             }
         });
+
 
     }
 
@@ -64,11 +78,13 @@ public class AdapterReminder extends RecyclerView.Adapter<AdapterReminder.ViewHo
     }
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvTanggal,tvCategory, del;
+        CardView cardView;
         public ViewHolder(View itemView) {
             super(itemView);
             tvCategory = (TextView)itemView.findViewById(R.id.listinsu);
             tvTanggal = (TextView)itemView.findViewById(R.id.listdate);
             del = (TextView) itemView.findViewById(R.id.listdelete);
+            cardView = itemView.findViewById(R.id.cardview);
         }
     }
     public void save () {
