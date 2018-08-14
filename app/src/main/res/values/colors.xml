@@ -9,4 +9,8 @@
     <color name="crimson">#B71C1C</color>
     <color name="redone">#F44336</color>
     <color name="blueone">#1976D2</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="silver">#C0C0C0</color>
+    <color name="darkGrey">#a9a9a9</color>
+    <color name="merahBata">#B22222</color>
 </resources>

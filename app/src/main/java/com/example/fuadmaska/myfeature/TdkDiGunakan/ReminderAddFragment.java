@@ -1,8 +1,10 @@
-package com.example.fuadmaska.myfeature.Fragment;
+package com.example.fuadmaska.myfeature.TdkDiGunakan;
 
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -21,21 +23,27 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
+import com.example.fuadmaska.myfeature.Fragment.ReminderListFragment;
+import com.example.fuadmaska.myfeature.Model.DataReminder;
 import com.example.fuadmaska.myfeature.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.text.DecimalFormat;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Calendar;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+import static android.content.Context.MODE_PRIVATE;
+
 public class ReminderAddFragment extends Fragment {
     Toolbar toolbar;
     EditText addedttot, addedtdate, addedttime, addedtnote;
     RadioButton setmonthly;
     Button saveaddrem;
     Spinner selins;
+    private ArrayList<DataReminder> data;
 
     String[] jenisInsurance = {
             "Asuransi Jiwa",
@@ -61,7 +69,7 @@ public class ReminderAddFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_reminder_add, container, false);
-
+        loaddata();
         addedttot = view.findViewById(R.id.edttotprem);
         addedttot.addTextChangedListener(new NumberTextWatcher(addedttot, "#,##.00"));
         addedtdate = view.findViewById(R.id.edtdateprem);
@@ -139,17 +147,13 @@ public class ReminderAddFragment extends Fragment {
                     bkd.putString("dateprem",dateprem);
                     bkd.putString("timeprem",timeprem);
                     bkd.putString("noteprem",noteprem);
-
-
+                    data.add(new DataReminder(insucateg,jmltotprem,dateprem,timeprem,noteprem));
+                    save();
 
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-
-                    fragmentTransaction.replace(R.id.container_remin,rlf);
+                    fragmentTransaction.replace(R.id.add_rem,rlf);
                     fragmentTransaction.commit();
-                    rlf.setArguments(bkd);
-
 
 
                 }
@@ -192,8 +196,8 @@ public class ReminderAddFragment extends Fragment {
         });
         return view;
 
-
     }
+
 
 
     private class NumberTextWatcher implements TextWatcher {
@@ -278,6 +282,28 @@ public class ReminderAddFragment extends Fragment {
 
         }
 
+
     }
+    public void save (){
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("datasave", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(data);
+        editor.putString("datalist",json);
+        editor.apply();
+
+    }
+    private void loaddata() {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("datasave", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("datalist", null);
+        Type type = new TypeToken<ArrayList<DataReminder>>() {}.getType();
+        data = gson.fromJson(json, type);
+
+        if (data == null) {
+            data = new ArrayList<>();
+        }
+    }
+
 
 }

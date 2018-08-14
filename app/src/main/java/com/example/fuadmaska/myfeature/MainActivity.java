@@ -1,5 +1,6 @@
 package com.example.fuadmaska.myfeature;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -13,10 +14,18 @@ import com.example.fuadmaska.myfeature.Fragment.HomeFragment;
 import com.example.fuadmaska.myfeature.Fragment.MessageFragment;
 import com.example.fuadmaska.myfeature.Fragment.ProfileFragment;
 import com.example.fuadmaska.myfeature.Fragment.ReminderFragment;
+import com.example.fuadmaska.myfeature.Fragment.ReminderListFragment;
+import com.example.fuadmaska.myfeature.Model.DataReminder;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     TabLayout tabbawah;
     ViewPager pageatas;
+    ArrayList<DataReminder> data;
 
 
     @Override
@@ -30,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         tabbawah.addTab(tabbawah.newTab().setText("Reminder").setIcon(R.drawable.ic_notifications_black_24dp));
         tabbawah.addTab(tabbawah.newTab().setText("Message").setIcon(R.drawable.ic_comment_black_24dp));
         tabbawah.addTab(tabbawah.newTab().setText("Profile").setIcon(R.drawable.ic_person_black_24dp));
-        tabbawah.setTabGravity(TabLayout.GRAVITY_FILL);
+        tabbawah.setTabGravity(TabLayout.GRAVITY_CENTER);
         tabbawah.setTabMode(TabLayout.MODE_SCROLLABLE);
 
         Custom adapter = new Custom(getSupportFragmentManager());
@@ -71,7 +80,15 @@ public class MainActivity extends AppCompatActivity {
             } else if (position == 1) {
                 return new ClaimFragment();
             } else if (position == 2) {
-                return new ReminderFragment();
+                loaddata();
+                if (data.isEmpty()) {
+                    return new ReminderFragment();
+                }
+                    else{
+                    return new ReminderListFragment();
+
+                }
+
             } else if (position == 3) {
                 return new MessageFragment();
             } else {
@@ -86,6 +103,17 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+    }
+    private void loaddata() {
+        SharedPreferences sharedPreferences = getSharedPreferences("datasave", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("datalist", null);
+        Type type = new TypeToken<ArrayList<DataReminder>>() {}.getType();
+        data = gson.fromJson(json, type);
+
+        if (data == null) {
+            data = new ArrayList<>();
+        }
     }
 
 

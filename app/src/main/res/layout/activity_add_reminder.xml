@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".AddReminder">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/colorWhite"
+        android:id="@+id/toolbar_add"
+        app:title=""
+        >
+
+    <TextView
+        android:id="@+id/textTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Edit Reminder"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="25sp" />
+
+    </android.support.v7.widget.Toolbar>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Insurance Category"
+        android:textSize="15sp"
+        android:id="@+id/text_select"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:textStyle="bold"
+        />
+
+    <Spinner
+        android:id="@+id/selectinsu"
+        style="@style/Widget.AppCompat.Spinner.Underlined"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp">>
+
+    </Spinner>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add reminder details"
+        android:textSize="15sp"
+        android:id="@+id/text_add"
+        app:layout_constraintTop_toBottomOf="@id/spinnerAdd"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:textStyle="bold"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total premi"
+        android:textSize="10sp"
+        android:id="@+id/text_total"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:drawableLeft="@drawable/ic_account_balance_wallet_black_24dp"
+        android:drawablePadding="10dp"
+        />
+
+    <EditText
+        android:id="@+id/edit_total"
+        android:layout_width="289dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="@+id/spinnerAdd"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_total" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date"
+        android:textSize="10sp"
+        android:id="@+id/text_date"
+        android:layout_marginLeft="20dp"
+        android:drawableLeft="@drawable/ic_date_range_black_24dp"
+        android:drawablePadding="10dp"
+        />
+
+    <EditText
+        android:id="@+id/edit_date"
+        android:layout_width="289dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
+        android:editable="false"
+        app:layout_constraintEnd_toEndOf="@+id/spinnerAdd"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_date"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Time"
+        android:textSize="10sp"
+        android:id="@+id/text_time"
+        android:layout_marginLeft="20dp"
+        android:drawableLeft="@drawable/ic_notifications_black_24dp"
+        android:drawablePadding="10dp"
+        />
+    <EditText
+        android:id="@+id/edit_time"
+        android:layout_width="289dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
+        android:editable="false"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add note"
+        android:textSize="10sp"
+        android:id="@+id/text_note"
+        android:layout_marginLeft="20dp"
+        android:drawableLeft="@drawable/ic_comment_black_24dp"
+        android:drawablePadding="10dp"
+        />
+
+    <EditText
+        android:id="@+id/edit_note"
+        android:layout_width="289dp"
+        android:layout_height="wrap_content"
+        android:inputType="none"
+        android:layout_marginLeft="60dp" />
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set as monthly remember"
+        android:layout_gravity="center_horizontal"
+        android:padding="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rectangle"/>
+    <Button
+        android:id="@+id/button_update"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center_horizontal"
+        android:text="Update" />
+
+
+</LinearLayout>

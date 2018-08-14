@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/putih"
-    tools:context=".Fragment.ReminderAddFragment">
+    tools:context=".TdkDiGunakan.ReminderAddFragment"
+    android:id="@+id/add_rem">
 
 
     <!-- TODO: Update blank fragment layout -->
