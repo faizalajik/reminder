@@ -34,7 +34,6 @@ public class CustomRecyclerFragment extends Fragment {
 
         TextView caIns = view.findViewById(R.id.listinsu);
         TextView daIns = view.findViewById(R.id.listdate);
-
         caIns.setText(categoryInsurance);
         daIns.setText(tanggalBayar);
         return view;

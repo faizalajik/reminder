@@ -42,6 +42,7 @@ public class ReminderFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
+
             View view = inflater.inflate(R.layout.fragment_reminder, container, false);
             btnsetnewrmndr = view.findViewById(R.id.btnsetnewreminder);
             btnsetnewrmndr.setOnClickListener(new View.OnClickListener() {

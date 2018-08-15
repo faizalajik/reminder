@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.example.fuadmaska.myfeature.Fragment.ReminderFragment;
 import com.example.fuadmaska.myfeature.Fragment.ReminderListFragment;
+import com.example.fuadmaska.myfeature.Model.AdapterReminder;
 import com.example.fuadmaska.myfeature.Model.DataReminder;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -36,7 +37,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.ListIterator;
 import java.util.Locale;
+
 
 public class AddReminder extends AppCompatActivity {
     private DatePickerDialog datePickerDialog;
@@ -44,35 +48,52 @@ public class AddReminder extends AppCompatActivity {
     private TimePickerDialog timePickerDialog;
     private Spinner spinnerAdd;
     private Button btnUpdate;
-    private EditText Editdate,Edittotal,Edittime,Editnote;
-    private String date, time, note, total;
-    private ArrayList<DataReminder> data;
+    private EditText Editdate, Edittotal, Edittime, Editnote;
+    private String category;
+    private String total;
+    private String tanggal;
+    private String waktu;
+    private String note;
+    public static ArrayList<DataReminder> data;
     private String[] jenisAsuransi = {
             "Health Insurance",
             "Car Insurance",
             "Pension Insurance",
             "Life Insurance"
     };
+    ArrayAdapter<String> adapter;
+    /*
+     var status untuk memberi tanda bahwa akan dilakukan proses edit, yg akan dikirim melalui adapter reminder atau detail reminder,
+      dengan mengirim value update. alasan menggunakan modifier static agar dapat diset diluar kelas ini dan membantu mengirim value update
+      */
+    public static String status = "";
+    /*
+    dilakukan pengecekan ulang atau memeriksa tanda, apabila statusDetail update maka yg meminta proses edit dari detail reminder
+    , jika statusDetail = "" maka yg meminta proses edit adalah dari recycler atau kelas adapter reminder
+     */
+    public static String statusDetail = "";
+
+    int posisiEdit = 0; // untuk mendapatkan posisi dari si data yang akan diedit supaya dapat me replace data dengan yang baru
+    Intent intentEdit = getIntent();// membantu menangkap data yang akan di edit dan dikirim dari adapter reminder
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_reminder);
         loaddata();
-        Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar_add);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_add);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        spinnerAdd=(Spinner)findViewById(R.id.selectinsu);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+        spinnerAdd = (Spinner) findViewById(R.id.selectinsu);
+        adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_dropdown_item, jenisAsuransi);
         spinnerAdd.setAdapter(adapter);
         dateFormatter = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
 
-        Editdate = (EditText) findViewById(R.id.edit_date);
-        Edittotal = (EditText) findViewById(R.id.edit_total);
-        Edittime = (EditText)findViewById(R.id.edit_time);
-        btnUpdate = (Button)findViewById(R.id.button_update);
-        Editnote = (EditText) findViewById( R.id.edit_note);
+        initComponent();// casting komponen layout
+
         Edittotal.addTextChangedListener(new NumberTextWatcher(Edittotal, "#,##.00"));
+
         Editdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,14 +107,43 @@ public class AddReminder extends AppCompatActivity {
             }
         });
 
-        btnUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String category = spinnerAdd.getSelectedItem().toString();
-                String total = Edittotal.getText().toString();
-                String tanggal = Editdate.getText().toString();
-                String waktu = Edittime.getText().toString();
-                String note = Editnote.getText().toString();
+        /*
+         proses pemilihan kondisi apakah yang akan dilakukan, apabila status = update maka akan masuk ke prosses update reminder.
+         dan apabila status = "" maka akan dilakukan proses tambah reminder
+          */
+        if (status == "update") {
+            //proses update atau edit
+            btnUpdate.setText("Update");
+            getDataEdit();// memanggil metod yang menjalankan proses penangkapan data
+            status = "";// diset ulang agar status kembali seperti semula setelah selesai melakukan update
+            btnUpdate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //proses replace data
+                    ambilData();
+                    data.set(posisiEdit, new DataReminder(category, total, tanggal, waktu, note));
+                    save();//simpan data yg telah diperbarui
+
+                    if (statusDetail == "update") {
+                        Intent intent = new Intent();
+                        Bundle bundle = new Bundle();
+                        ambilData();
+                        bundle.putSerializable("perbaruiData", new DataReminder(category, total, tanggal, waktu, note));
+                        intent.putExtras(bundle);
+                        setResult(RESULT_OK, intent);
+                        statusDetail = "";//diset ulang agar status kembali seperti semula setelah selesai melakukan update
+                    }
+
+                    Toast.makeText(getBaseContext(), "Berhasil Update", Toast.LENGTH_LONG).show();
+                    finish();
+                }
+            });
+        } else {
+            btnUpdate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    ambilData();
 
                     if (total.isEmpty()) {
                         Edittotal.setError("The Amount must be filled");
@@ -107,7 +157,7 @@ public class AddReminder extends AppCompatActivity {
                     } else if (note.isEmpty()) {
                         Editnote.setError("Note must be filled");
                         Editnote.requestFocus();
-                    }else {
+                    } else {
                         ReminderListFragment rlf = new ReminderListFragment();
                         data.add(new DataReminder(category, total, tanggal, waktu, note));
                         save();
@@ -121,12 +171,21 @@ public class AddReminder extends AppCompatActivity {
                         //AddReminder.this.finish();
 
                     }
-            }
-        });
+                }
+            });
+        }
 
     }
 
-    private void showDateDialog(){
+    private void initComponent() {
+        Editdate = (EditText) findViewById(R.id.edit_date);
+        Edittotal = (EditText) findViewById(R.id.edit_total);
+        Edittime = (EditText) findViewById(R.id.edit_time);
+        btnUpdate = (Button) findViewById(R.id.button_update);
+        Editnote = (EditText) findViewById(R.id.edit_note);
+    }
+
+    private void showDateDialog() {
         Calendar newCalendar = Calendar.getInstance();
 
         datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
@@ -139,10 +198,11 @@ public class AddReminder extends AppCompatActivity {
                 Editdate.setText(dateFormatter.format(newDate.getTime()));
             }
 
-        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
 
         datePickerDialog.show();
     }
+
     private void showTimeDialog() {
 
         /**
@@ -159,7 +219,7 @@ public class AddReminder extends AppCompatActivity {
                 /**
                  * Method ini dipanggil saat kita selesai memilih waktu di DatePicker
                  */
-                Edittime.setText(+hourOfDay+":"+minute);
+                Edittime.setText(+hourOfDay + ":" + minute);
             }
         },
                 /**
@@ -174,26 +234,52 @@ public class AddReminder extends AppCompatActivity {
 
         timePickerDialog.show();
     }
-    public void save (){
+
+    public void save() {
         SharedPreferences sharedPreferences = getSharedPreferences("datasave", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
         String json = gson.toJson(data);
-        editor.putString("datalist",json);
+        editor.putString("datalist", json);
         editor.apply();
 
     }
-    private void loaddata() {
+
+    public void getDataEdit() {
+        //proses penangkapan data yang dikirim dari adapter reminder yang akan di edit, dan prosess set layout
+        Bundle bundle = getIntent().getExtras();
+        DataReminder reminder = (DataReminder) bundle.getSerializable("data");
+        int spinnerPosisi = adapter.getPosition(reminder.getCategory()); // proses mencari posisi data yang ada di spinner dengan value berikut
+        spinnerAdd.setSelection(spinnerPosisi);
+        Editdate.setText(reminder.getTanggal());
+        Edittime.setText(reminder.getWaktu());
+        Edittotal.setText(reminder.getTotal());
+        Editnote.setText(reminder.getNote());
+        posisiEdit = bundle.getInt("posisi");
+
+    }
+
+    private void ambilData() {
+        category = spinnerAdd.getSelectedItem().toString();
+        total = Edittotal.getText().toString();
+        tanggal = Editdate.getText().toString();
+        waktu = Edittime.getText().toString();
+        note = Editnote.getText().toString();
+    }
+
+    public void loaddata() {
         SharedPreferences sharedPreferences = getSharedPreferences("datasave", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("datalist", null);
-        Type type = new TypeToken<ArrayList<DataReminder>>() {}.getType();
+        Type type = new TypeToken<ArrayList<DataReminder>>() {
+        }.getType();
         data = gson.fromJson(json, type);
 
         if (data == null) {
             data = new ArrayList<>();
         }
     }
+
     private class NumberTextWatcher implements TextWatcher {
         private final DecimalFormat df;
         private final DecimalFormat dfnd;

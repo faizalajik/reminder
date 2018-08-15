@@ -1,6 +1,8 @@
 package com.example.fuadmaska.myfeature.Model;
 
-public class DataReminder {
+import java.io.Serializable;
+
+public class DataReminder implements Serializable {
     String category, total, tanggal, waktu, note;
 
     public DataReminder() {

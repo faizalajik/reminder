@@ -39,7 +39,6 @@ RecyclerView recycler;
     private ArrayList<DataReminder> data;
     TabLayout tabbawah;
 
-
     public ReminderListFragment() {
         // Required empty public constructor
     }
@@ -53,6 +52,7 @@ RecyclerView recycler;
         View view = inflater.inflate(R.layout.fragment_reminder_list, container, false);
         loaddata();
         rv = (RecyclerView) view.findViewById(R.id.recyclerlistadd);
+
 
         FloatingActionButton fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

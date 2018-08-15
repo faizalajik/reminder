@@ -63,7 +63,7 @@
                         android:textColor="@color/redone"
                         android:textStyle="bold" />
 
-                    <TextView
+                    <Button
                         android:textStyle="bold"
                         android:textColor="@color/blueone"
                         android:layout_marginLeft="50dp"
