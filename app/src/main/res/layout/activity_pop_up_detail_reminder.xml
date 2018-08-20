@@ -2,8 +2,207 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="400dp"
+    android:layout_height="350dp"
+    android:background="@android:color/transparent"
     tools:context=".PopUpDetailReminder">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_home_black_24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"/>
+
+    <ImageView
+        android:id="@+id/img_gambar_kategori"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginLeft="23dp"
+        android:layout_marginTop="28dp"
+        android:src="@drawable/ic_home_black_24dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_kategori_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="36dp"
+        android:layout_marginTop="28dp"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toEndOf="@+id/img_gambar_kategori"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="Health Insurance" />
+
+    <TextView
+        android:id="@+id/tv_tanggal_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="36dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="sans-serif"
+        android:textColor="#828282"
+        android:textSize="16sp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toEndOf="@+id/img_gambar_kategori"
+        app:layout_constraintTop_toBottomOf="@+id/tv_kategori_detail"
+        android:text="20 Jan 2018"
+        />
+
+
+    <ImageView
+        android:id="@+id/img_gambar_dompet"
+        android:layout_width="16dp"
+        android:layout_height="14dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="25dp"
+        android:src="@drawable/ic_home_black_24dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_gambar_kategori" />
+
+    <TextView
+        android:id="@+id/tv_keteranga_total"
+        android:layout_width="wrap_content"
+        android:layout_height="14dp"
+        android:layout_marginLeft="15dp"
+        android:fontFamily="sans-serif"
+        android:text="Total premi"
+        android:textColor="#828282"
+        android:textSize="14sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="@+id/img_gambar_dompet"
+        app:layout_constraintStart_toEndOf="@+id/img_gambar_dompet"
+        app:layout_constraintTop_toTopOf="@+id/img_gambar_dompet" />
+
+    <TextView
+        android:id="@+id/tv_total_premi_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="sans-serif"
+        android:text="500.000"
+        android:textColor="#333333"
+        android:textSize="14sp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="@+id/tv_keteranga_total"
+        app:layout_constraintTop_toBottomOf="@+id/tv_keteranga_total" />
+
+    <ImageView
+        android:id="@+id/img_gambar_kalendar"
+        android:layout_width="16dp"
+        android:layout_height="14dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="22dp"
+        android:src="@drawable/ic_home_black_24dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_total_premi_detail" />
+
+    <TextView
+        android:id="@+id/tv_keterangan_tanggal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:fontFamily="sans-serif"
+        android:text="Date"
+        android:textColor="#828282"
+        android:textSize="14sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="@+id/img_gambar_kalendar"
+        app:layout_constraintStart_toEndOf="@+id/img_gambar_kalendar"
+        app:layout_constraintTop_toTopOf="@+id/img_gambar_kalendar" />
+
+    <TextView
+        android:id="@+id/tv_detail_tanggal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="sans-serif"
+        android:text="25/08/2018"
+        android:textColor="#333333"
+        android:textSize="14sp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="@+id/tv_keterangan_tanggal"
+        app:layout_constraintTop_toBottomOf="@+id/tv_keterangan_tanggal" />
+
+    <ImageView
+        android:id="@+id/img_gambar_jam"
+        android:layout_width="16dp"
+        android:layout_height="14dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="22dp"
+        android:src="@drawable/ic_home_black_24dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_detail_tanggal" />
+
+    <TextView
+        android:id="@+id/tv_keterangan_waktu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:fontFamily="sans-serif"
+        android:text="Time"
+        android:textColor="#828282"
+        android:textSize="14sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="@+id/img_gambar_jam"
+        app:layout_constraintStart_toEndOf="@+id/img_gambar_jam"
+        app:layout_constraintTop_toTopOf="@+id/img_gambar_jam" />
+
+    <TextView
+        android:id="@+id/tv_detail_waktu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="sans-serif"
+        android:text="16:00"
+        android:textColor="#333333"
+        android:textSize="14sp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="@+id/tv_keterangan_waktu"
+        app:layout_constraintTop_toBottomOf="@+id/tv_keterangan_waktu" />
+
+    <ImageView
+        android:id="@+id/img_gambar_buku"
+        android:layout_width="16dp"
+        android:layout_height="14dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="22dp"
+        android:src="@drawable/ic_home_black_24dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_detail_waktu" />
+
+    <TextView
+        android:id="@+id/tv_keterangan_note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:fontFamily="sans-serif"
+        android:text="Note"
+        android:textColor="#828282"
+        android:textSize="14sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="@+id/img_gambar_buku"
+        app:layout_constraintStart_toEndOf="@+id/img_gambar_buku"
+        app:layout_constraintTop_toTopOf="@+id/img_gambar_buku" />
+
+    <TextView
+        android:id="@+id/tv_detail_note"
+        android:layout_width="wrap_content"
+        android:layout_height="19dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="sans-serif"
+        android:text="16:00"
+        android:textColor="#333333"
+        android:textSize="14sp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="@+id/tv_keterangan_note"
+        app:layout_constraintTop_toBottomOf="@+id/tv_keterangan_note" />
+
 
 </android.support.constraint.ConstraintLayout>

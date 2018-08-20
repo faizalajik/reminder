@@ -1,6 +1,8 @@
 package com.example.fuadmaska.myfeature;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -38,6 +40,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.ListIterator;
 import java.util.Locale;
 
@@ -161,6 +164,8 @@ public class AddReminder extends AppCompatActivity {
                         ReminderListFragment rlf = new ReminderListFragment();
                         data.add(new DataReminder(category, total, tanggal, waktu, note));
                         save();
+                        setAlarm(tanggal,waktu);
+
                         finish();
 //                        Toast.makeText(getApplicationContext(), "Data Disimpan di Internal", Toast.LENGTH_SHORT).show();
 //                        Intent intent = new Intent(AddReminder.this,ReminderListFragment.class);
@@ -362,6 +367,34 @@ public class AddReminder extends AppCompatActivity {
 
         }
 
+
+    }
+    private void setAlarm(String tanggal, String waktu) {
+
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        String string = tanggal + " " + waktu ;
+
+
+        Calendar calendar = Calendar.getInstance();
+        Date date = null;
+        try {
+            date = format.parse(string);
+            System.out.println(date);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        calendar.setTime(date);
+        System.out.println(calendar.getTimeInMillis());
+
+        //
+        AlarmManager alarmManager = (AlarmManager) AddReminder.this.getSystemService(Context.ALARM_SERVICE);
+
+        Intent intent = new Intent(AddReminder.this, AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                AddReminder.this, 1, intent, 0);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 
     }
 }

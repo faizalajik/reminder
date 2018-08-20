@@ -8,8 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,12 +18,12 @@ import com.example.fuadmaska.myfeature.AddReminder;
 import com.example.fuadmaska.myfeature.Model.AdapterReminder;
 import com.example.fuadmaska.myfeature.Model.DataReminder;
 import com.example.fuadmaska.myfeature.R;
-import com.example.fuadmaska.myfeature.TdkDiGunakan.ReminderAddFragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -39,6 +37,7 @@ RecyclerView recycler;
     private ArrayList<DataReminder> data;
     TabLayout tabbawah;
 
+    View view ;
     public ReminderListFragment() {
         // Required empty public constructor
     }
@@ -49,10 +48,10 @@ RecyclerView recycler;
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View view = inflater.inflate(R.layout.fragment_reminder_list, container, false);
+        view = inflater.inflate(R.layout.fragment_reminder_list, container, false);
+
         loaddata();
         rv = (RecyclerView) view.findViewById(R.id.recyclerlistadd);
-
 
         FloatingActionButton fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +70,7 @@ RecyclerView recycler;
             }
         });
 //        fab.getP
+//        showNotification();
         return view;
     }
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -93,6 +93,7 @@ RecyclerView recycler;
             data = new ArrayList<>();
         }
     }
+
 
     public static Fragment newInstance() {
         return new ReminderListFragment();

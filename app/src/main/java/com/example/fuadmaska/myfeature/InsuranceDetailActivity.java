@@ -1,4 +1,4 @@
-package com.example.fuadmaska.myfeature.Fragment;
+package com.example.fuadmaska.myfeature;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

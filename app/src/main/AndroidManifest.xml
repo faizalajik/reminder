@@ -18,8 +18,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddReminder" />
-        <activity android:name=".DetailRemainderActivity"></activity>
+        <activity android:name=".AddReminder"
+            />
+        <activity android:name=".InsuranceDetailActivity" />
+        <receiver android:name=".AlarmReceiver"
+            android:process=":remote"/>
+
     </application>
 
 </manifest>

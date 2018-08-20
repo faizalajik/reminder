@@ -1,9 +1,226 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.InsuranceDetailActivity">
+    tools:context=".InsuranceDetailActivity"
+    android:background="@drawable/background_detail_insurance">
+    
+    <ImageView
+        android:layout_width="23dp"
+        android:layout_height="21dp"
+        android:id="@+id/img_save"
+        android:src="@drawable/ic_home_black_24dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="23dp"
+        />
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:text="POLISH NUMBER"
+        android:id="@+id/tv_keterangan_polish_number"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="96dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:fontFamily="sans-serif"
+        android:textStyle="normal"
+        android:textColor="#ffffff"
+        tools:text="Polish Number"
+        />
+    <TextView
+        android:text="NUMBER"
+        android:id="@+id/tv_polish_number"
+        android:layout_below="@+id/tv_keterangan_polish_number"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="36sp"
+        android:fontFamily="sans-serif"
+        android:textStyle="normal"
+        android:textColor="#ffffff"
+        tools:text="123 12345 6753"
+        />
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="195dp"
+        android:layout_centerHorizontal="true"
+        android:background="#ffffff"
+        android:id="@+id/rl_balace">
+        <TextView
+            android:text="Balace"
+            android:id="@+id/tv_balace"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal"
+            android:textColor="#4f4f4f"
+            tools:text="Balance"/>
+        <TextView
+            android:text="IDR"
+            android:id="@+id/tv_idr"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/tv_balace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:fontFamily="sans-serif-medium"
+            android:textStyle="normal"
+            android:textColor="#4f4f4f"
+            tools:text="IDR 20.000.000"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Personal Data"
+        android:id="@+id/tv_personal_data"
+        android:layout_below="@+id/rl_balace"
+        android:layout_marginTop="25dp"
+        android:textSize="18sp"
+        android:layout_marginLeft="11dp"
+        android:fontFamily="sans-serif"
+        android:textStyle="normal"
+        android:textColor="#000000"
+        tools:text="Personal Data"/>
+
+    <RelativeLayout
+        android:layout_width="340dp"
+        android:layout_height="56dp"
+        android:layout_centerHorizontal="true"
+        android:background="#ffffff"
+        android:id="@+id/rl_personal_data"
+        android:layout_below="@+id/tv_personal_data"
+        >
+        <TextView
+            android:text="Mr. Ibrogim"
+            android:id="@+id/tv_nama"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="6dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:fontFamily="sans-serif-medium"
+            android:textStyle="normal"
+            android:textColor="#4f4f4f"
+            tools:text="Mr. Ibrahim Movic"/>
+        <TextView
+            android:text="jenis kelamin"
+            android:id="@+id/tv_jenis_kelamin"
+            android:layout_marginLeft="16dp"
+            android:layout_below="@+id/tv_nama"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal"
+            android:textColor="#828282"
+            tools:text="Male"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Insurance Details"
+        android:id="@+id/tv_incurance_detail"
+        android:layout_below="@+id/rl_personal_data"
+        android:layout_marginTop="15dp"
+        android:textSize="18sp"
+        android:layout_marginLeft="11dp"
+        android:fontFamily="sans-serif"
+        android:textStyle="normal"
+        android:textColor="#000000"
+        tools:text="Insurance Details"/>
+
+    <RelativeLayout
+        android:layout_width="340dp"
+        android:layout_height="56dp"
+        android:layout_centerHorizontal="true"
+        android:background="#ffffff"
+        android:id="@+id/rl_incurance_detail"
+        android:layout_below="@+id/tv_incurance_detail">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:text="Insurance Type"
+            android:id="@+id/tv_incurance_type"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal"
+            android:textColor="#828282"
+            tools:text="Insurance Type"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:fontFamily="sans-serif-medium"
+            android:textStyle="normal"
+            android:textColor="#4f4f4f"
+            tools:text="Insurance Database 1"
+            android:text="Insurance Databse 1"
+            android:id="@+id/tv_tipe_incurance"
+            android:layout_marginLeft="16dp"
+            android:layout_below="@+id/tv_incurance_type"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="340dp"
+        android:layout_height="56dp"
+        android:layout_centerHorizontal="true"
+        android:background="#ffffff"
+        android:id="@+id/rl_date"
+        android:layout_below="@+id/rl_incurance_detail">
+        <TextView
+            android:text="Due Date"
+            android:id="@+id/tv_due_date"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal"
+            android:textColor="#828282"
+            tools:text="Due Date"/>
+        <TextView
+            android:text="27 January 2015"
+            android:id="@+id/tv_date"
+            android:layout_marginLeft="16dp"
+            android:layout_below="@+id/tv_due_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:fontFamily="sans-serif-medium"
+            android:textStyle="normal"
+            android:textColor="#4f4f4f"
+            tools:text="27 January 2025"/>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal"
+            android:textColor="#000000"
+            tools:text="Remind me"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="10dp"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
